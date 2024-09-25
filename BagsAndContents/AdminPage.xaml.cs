@@ -1,3 +1,5 @@
+using System.Runtime.Intrinsics.Arm;
+
 namespace BagsAndContents;
 
 public partial class AdminPage : ContentPage
@@ -15,14 +17,22 @@ public partial class AdminPage : ContentPage
 	}
 
 
-    private void AddNewBag(object sender, EventArgs e)
+    private async void AddNewBag(object sender, EventArgs e)
     {
-
+        if (SelectedBag != null)
+        {
+            NewBag nb = new(SelectedBag);
+            await Navigation.PushAsync(nb);
+        }
     }
 
-    private void EditSelBag(object sender, EventArgs e)
+    private async void EditSelBag(object sender, EventArgs e)
     {
-
+        if (SelectedBag != null)
+        {
+            EditBag editb = new(SelectedBag);
+            await Navigation.PushAsync(editb);
+        }
     }
 
     private async void DeleteBag(object sender, EventArgs e)
