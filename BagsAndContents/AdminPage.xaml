@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BagsAndContents.AdminPage"
+             Title="AdminPage">
+    <StackLayout>
+        <HorizontalStackLayout>
+            <Button Text="Новая сумка" Clicked="AddNewBag"/>
+            <Button Text="Редакировать сумку" Clicked="EditSelBag"/>
+            <Button Text="Выкинуть сумку" Clicked="DeleteBag"/>
+        </HorizontalStackLayout>
+        <ListView ItemsSource="{Binding ListBags}" SelectedItem="{Binding SelectedBag}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                                <Label Text="Владелец: "/>
+                                <Label Text="{Binding OwnerName}"/>
+                            </StackLayout>
+                        <Label Text="{Binding Type}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

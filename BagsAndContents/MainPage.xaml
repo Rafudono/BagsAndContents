@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BagsAndContents.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Button Text="Режим разработчика" Clicked="ImAdmin"/>
+            <CollectionView ItemsSource="{Binding ListBags}" SelectedItem= "{Binding SelectedBag}" SelectionMode="Single">
+                <CollectionView.ItemTemplate >
+                    <DataTemplate >
+                        <StackLayout >
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Владелец: "/>
+                                <Label Text="{Binding OwnerName}"/>
+                            </StackLayout>
+                            <Label Text="{Binding Type}"/>
+                            <CarouselView  ItemsSource="{Binding BagContents}">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Background="GreenYellow" Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
