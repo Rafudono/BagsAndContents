@@ -17,21 +17,17 @@ public partial class AdminPage : ContentPage
 	}
 
 
-    private async void AddNewBag(object sender, EventArgs e)
+    private async void AddorEditBag(object sender, EventArgs e)
     {
         if (SelectedBag != null)
         {
-            NewBag nb = new(SelectedBag);
+            NewOrEditBag nb = new(SelectedBag.Id);
             await Navigation.PushAsync(nb);
         }
-    }
-
-    private async void EditSelBag(object sender, EventArgs e)
-    {
-        if (SelectedBag != null)
+        else
         {
-            EditBag editb = new(SelectedBag);
-            await Navigation.PushAsync(editb);
+            NewOrEditBag nb = new(0);
+            await Navigation.PushAsync(nb);
         }
     }
 

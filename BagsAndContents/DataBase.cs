@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,8 +22,6 @@ namespace BagsAndContents
         };
         public DataBase()
         {
-            //здесь мы создадим список пакетов и их содержимого
-            //а также добавим работу с ними (функционал)
             foreach (var bag in Bags)
             {
                 foreach (var content in Contents)
@@ -33,16 +32,26 @@ namespace BagsAndContents
             }
         }
         public async Task<List<Bag>> GetBags()
-        { await Task.Delay(100); return Bags; }
+        { await Task.Delay(100); return new List<Bag>(Bags); }
         public async Task<List<Content>> GetContents()
-        { await Task.Delay(100); return Contents; }
+        { await Task.Delay(100); return new List<Content>(Contents); }
 
         public async Task<Bag> GetBagById(int id)
         {
             foreach (Bag b in Bags)
             {
-                b.Id = id;
-                return b;
+                if (b.Id == id)
+                {
+                    Bag bag = new Bag
+                    {
+                        Id = b.Id,
+                        OwnerName = b.OwnerName,
+                        Type = b.Type,
+                        BagContents = b.BagContents
+                    };
+                    return bag;
+
+                }
             }
             await Task.Delay(100);
             return null;
@@ -51,8 +60,12 @@ namespace BagsAndContents
         {
             foreach (Content c in Contents)
             {
-                c.Id = id;
-                return c;
+                if (c.Id == id)
+                {
+                    Content newContent = new Content();
+                    newContent = c;
+                    return newContent; 
+                }
             }
             await Task.Delay(100);
             return null;
@@ -60,11 +73,38 @@ namespace BagsAndContents
 
         public async void AddBag(Bag b)
         { await Task.Delay(100); Bags.Add(b); }
-        public async void RemoveBag(Bag b)
-        { await Task.Delay(100); Bags.Remove(b); }
+        public async void RemoveBag(int bag_id)
+        { await Task.Delay(100);
+            foreach (Bag b in Bags)
+            {
+                if(b.Id == bag_id)
+                {
+                    Bag delBag = new Bag();
+                    delBag = b;
+                    Bags.Remove(delBag);
+                }
+            }
+        }
+        public async void EditBag (Bag bag)
+        {
+            foreach (Bag b in Bags)
+            {
+                if (b.Id == bag.Id)
+                { 
+                    Bag editedbag = new Bag();
+                    editedbag = bag;
+                    b.OwnerName=editedbag.OwnerName;
+                    b.Type=editedbag.Type;
+                    b.BagContents= editedbag.BagContents;
+                }
+
+            }
+            await Task.Delay(100);
+        }
 
         public async void AddContent(Content content)
-        { await Task.Delay(100); Contents.Add(content); }
+        { await Task.Delay(100); 
+            Contents.Add(content); }
         public async void RemoveContent(Content content)
         { await Task.Delay(100); Contents.Remove(content); }
     }

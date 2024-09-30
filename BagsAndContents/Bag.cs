@@ -10,7 +10,7 @@ namespace BagsAndContents
     {
         public int Id { get; set; }
 
-        public string OwnerName { get; set; }
+        public string OwnerName { get; set; } = null!;
         public string Type { get; set; }
         public List<Content> BagContents { get; set; }=new List<Content>();  
     }
