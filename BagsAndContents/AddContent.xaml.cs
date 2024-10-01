@@ -2,7 +2,7 @@ namespace BagsAndContents;
 
 public partial class AddContent : ContentPage
 {
-	DataBase dataBase = new DataBase();
+
 	public Content NewContent { get; set; } = new Content();
 	public AddContent()
 	{
@@ -12,6 +12,6 @@ public partial class AddContent : ContentPage
 
     private void AddNewContent(object sender, EventArgs e)
     {
-		dataBase.AddContent(NewContent);
+		DataBase.GetInstance().AddContent(NewContent);
     }
 }

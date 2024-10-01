@@ -2,19 +2,23 @@ namespace BagsAndContents;
 
 public partial class NewOrEditBag : ContentPage
 {
-	DataBase data;
 	public Bag NorEBag { get; set; }=new Bag();
+    public List<Content> Contents { get; set; } = new List<Content>();
 	public NewOrEditBag(Bag selBag)
 	{
 		InitializeComponent();
-		data = new DataBase();
+        DataBase.GetInstance();
         NorEBag = selBag; 
 		BindingContext = this;
 	}
-
-    private void NewContent(object sender, EventArgs e)
+    public async void UpdateCollections()
     {
-
+        Contents = await DataBase.GetInstance().GetContents();
+    }
+    private async void NewContent(object sender, EventArgs e)
+    {
+        NewContent nContent = new();
+        await Navigation.PushAsync(nContent);
     }
 
     private void DelContent(object sender, EventArgs e)
@@ -26,12 +30,12 @@ public partial class NewOrEditBag : ContentPage
     {
         if (NorEBag != null)
         {
-            if(NorEBag.Id== 0) 
-            data.AddBag(NorEBag);
+            if(NorEBag.Id== 0)
+                DataBase.GetInstance().AddBag(NorEBag);
             else
             {
-               // data.GetBagById(NorEBag.Id);
-                data.RemoveBag(data.GetBagById(NorEBag.Id));
+                // data.GetBagById(NorEBag.Id);
+                DataBase.GetInstance().EditBag(NorEBag);
             }
         }
     }

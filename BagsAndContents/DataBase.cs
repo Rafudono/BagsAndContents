@@ -4,23 +4,14 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BagsAndContents
 {
-    public class DataBase
+     class DataBase
     {
-        public List<Bag> Bags = new List<Bag>
-        {
-            new() { Id=1, OwnerName="Алёна", Type="Бежевая сумочка"},
-            new() {Id=2, OwnerName="Я", Type="Сумка для компа"}
-        };
-        public List<Content> Contents = new List<Content>
-        {
-        new () {Id = 1, BagId=2, Name="Ноут", Description = "Очень важная вещьч"},
-        new() {Id=2, BagId=1, Name="Расчёска"},
-        new() {Id=3, BagId=1, Name="Носки", Description="?"}
-        };
-        public DataBase()
+        private static DataBase instance;
+        private DataBase()
         {
             foreach (var bag in Bags)
             {
@@ -31,6 +22,24 @@ namespace BagsAndContents
                     }
             }
         }
+        public static DataBase GetInstance()
+        {
+            if (instance == null)
+                instance = new DataBase();
+            return instance;
+        
+        }
+        private List<Bag> Bags = new List<Bag>
+        {
+            new() { Id=1, OwnerName="Алёна", Type="Бежевая сумочка" }, //где заполнить коллекцию контента?
+            new() {Id=2, OwnerName="Я", Type="Сумка для компа"}
+        };
+        private List<Content> Contents = new List<Content>
+        {
+        new () {Id = 1, BagId=2, Name="Ноут", Description = "Очень важная вещьч"},
+        new() {Id=2, BagId=1, Name="Расчёска"},
+        new() {Id=3, BagId=1, Name="Носки", Description="?"}
+        };
         public async Task<List<Bag>> GetBags()
         { await Task.Delay(100); return new List<Bag>(Bags); }
         public async Task<List<Content>> GetContents()
@@ -72,16 +81,22 @@ namespace BagsAndContents
         }
 
         public async void AddBag(Bag b)
-        { await Task.Delay(100); Bags.Add(b); }
+        { await Task.Delay(100);
+            Bag bag = new Bag()
+            {
+                Id = Bags.Count() + 1,
+                Type = b.Type,
+                OwnerName= b.OwnerName,
+                BagContents= b.BagContents
+            };
+            Bags.Add(bag); }
         public async void RemoveBag(int bag_id)
         { await Task.Delay(100);
             foreach (Bag b in Bags)
             {
                 if(b.Id == bag_id)
                 {
-                    Bag delBag = new Bag();
-                    delBag = b;
-                    Bags.Remove(delBag);
+                    Bags.Remove(b);
                 }
             }
         }
@@ -90,22 +105,53 @@ namespace BagsAndContents
             foreach (Bag b in Bags)
             {
                 if (b.Id == bag.Id)
-                { 
-                    Bag editedbag = new Bag();
-                    editedbag = bag;
-                    b.OwnerName=editedbag.OwnerName;
-                    b.Type=editedbag.Type;
-                    b.BagContents= editedbag.BagContents;
+                {
+                    b.OwnerName= bag.OwnerName;
+                    b.Type= bag.Type;
+                    b.BagContents= bag.BagContents;
                 }
 
             }
             await Task.Delay(100);
         }
 
-        public async void AddContent(Content content)
-        { await Task.Delay(100); 
-            Contents.Add(content); }
-        public async void RemoveContent(Content content)
-        { await Task.Delay(100); Contents.Remove(content); }
+        public async void AddContent(Content c)
+        {
+            await Task.Delay(100);
+            Content content = new Content()
+            {
+                Id = Contents.Count() + 1,
+                Name = c.Name,
+                Description = c.Description,
+                BagId = c.BagId
+            };
+            Contents.Add(content);
+        }
+        public async void RemoveContent(int c_id)
+        {
+            await Task.Delay(100);
+            foreach (Content c in Contents)
+            {
+                if (c.Id == c_id)
+                {
+                    Contents.Remove(c);
+                }
+            }
+        }
+        public async void EditContent(Content content)
+        {
+            foreach (Content c in Contents)
+            {
+                if (c.Id == content.Id)
+                {
+                    c.Name = content.Name;
+                    c.Description = content.Description;
+                    c.BagId = content.BagId;
+                }
+
+            }
+            await Task.Delay(100);
+        }
+
     }
 }

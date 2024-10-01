@@ -69,6 +69,9 @@
 	  <MauiXaml Update="AdminPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="NewContent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="NewOrEditBag.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
