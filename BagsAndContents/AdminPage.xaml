@@ -8,6 +8,7 @@
             <Button Text="Новая сумка" Clicked="AddorEditBag"/>
             <Button Text="Редакировать сумку" Clicked="AddorEditBag"/>
             <Button Text="Выкинуть сумку" Clicked="DeleteBag"/>
+
         </HorizontalStackLayout>
         <ListView ItemsSource="{Binding ListBags}" SelectedItem="{Binding SelectedBag}">
             <ListView.ItemTemplate>

@@ -5,11 +5,13 @@
 
     <ScrollView>
         <VerticalStackLayout>
-            <Button Text="Режим разработчика" Clicked="ImAdmin"/>
+            <HorizontalStackLayout>
+                <Button Text="Режим разработчика" Clicked="ImAdmin"/>
+            </HorizontalStackLayout>
             <CollectionView ItemsSource="{Binding ListBags}" SelectedItem= "{Binding SelectedBag}" SelectionMode="Single">
                 <CollectionView.ItemTemplate >
                     <DataTemplate >
-                        <StackLayout >
+                        <StackLayout>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Владелец: "/>
                                 <Label Text="{Binding OwnerName}"/>

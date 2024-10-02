@@ -17,17 +17,20 @@ public partial class AdminPage : ContentPage
     public async void UpdateCollections()
     {
         ListBags = await DataBase.GetInstance().GetBags();
+        OnPropertyChanged(nameof(ListBags));
     }
 
     private async void AddorEditBag(object sender, EventArgs e)
     {
-        if (SelectedBag != null)
-        {
+        
             NewOrEditBag nb = new NewOrEditBag(SelectedBag);
             await Navigation.PushAsync(nb);
-        }
+        
     }
-
+    protected override void OnAppearing()
+    {
+        UpdateCollections();
+    }
     private async void DeleteBag(object sender, EventArgs e)
     {
         if (SelectedBag != null)
@@ -39,5 +42,9 @@ public partial class AdminPage : ContentPage
                 UpdateCollections();
             }
         }
+    }
+    private void Reload(object sender, EventArgs e)
+    {
+        UpdateCollections();
     }
 }

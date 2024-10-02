@@ -8,6 +8,6 @@
         <Entry  Text="{Binding NeWContent.Name}"/>
         <Label Text="Опишите этот предмет (необязательно)?"/>
         <Entry  Text="{Binding NeWContent.Description}"/>
-
+        <Button Text="Положить в сумку!" Clicked="Save"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -9,7 +9,7 @@
         <Label Text="Чей сумка (пакет)?"/>
         <Entry  Text="{Binding NorEBag.OwnerName}"/>
         <Label Text="Содержимое сумки (пакета)"/>
-        <ListView ItemsSource="{Binding NorEBag.BagContents}">
+        <ListView ItemsSource="{Binding Contents}" SelectedItem="{Binding SelectedContent}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

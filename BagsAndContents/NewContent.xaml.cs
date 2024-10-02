@@ -7,6 +7,16 @@ public partial class NewContent : ContentPage
 	{
 		InitializeComponent();
 		DataBase.GetInstance();
-		BindingContext=this;
+		BindingContext = this;
+	}
+
+	private void Save(object sender, EventArgs e)
+	{
+
+		if (NeWContent != null)
+		{
+			DataBase.GetInstance().AddContent(NeWContent);
+			Navigation.PopAsync();
+		}
 	}
 }

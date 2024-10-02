@@ -13,15 +13,9 @@ namespace BagsAndContents
         private static DataBase instance;
         private DataBase()
         {
-            foreach (var bag in Bags)
-            {
-                foreach (var content in Contents)
-                    if (bag.Id == content.BagId)
-                    {
-                        bag.BagContents.Add(content);
-                    }
-            }
+            ReloadBagContent();
         }
+
         public static DataBase GetInstance()
         {
             if (instance == null)
@@ -44,7 +38,18 @@ namespace BagsAndContents
         { await Task.Delay(100); return new List<Bag>(Bags); }
         public async Task<List<Content>> GetContents()
         { await Task.Delay(100); return new List<Content>(Contents); }
-
+        public void ReloadBagContent()
+        {
+            foreach (var bag in Bags)
+            {
+                bag.BagContents = new();
+                foreach (var content in Contents)
+                    if (bag.Id == content.BagId)
+                    {
+                        bag.BagContents.Add(content);
+                    }
+            }
+        }
         public async Task<Bag> GetBagById(int id)
         {
             foreach (Bag b in Bags)
@@ -92,16 +97,19 @@ namespace BagsAndContents
             Bags.Add(bag); }
         public async void RemoveBag(int bag_id)
         { await Task.Delay(100);
+            Bag deleteMe = new Bag();
             foreach (Bag b in Bags)
             {
                 if(b.Id == bag_id)
                 {
-                    Bags.Remove(b);
+                    deleteMe = b;
                 }
             }
+            Bags.Remove(deleteMe);
         }
         public async void EditBag (Bag bag)
         {
+           
             foreach (Bag b in Bags)
             {
                 if (b.Id == bag.Id)
@@ -127,16 +135,19 @@ namespace BagsAndContents
             };
             Contents.Add(content);
         }
-        public async void RemoveContent(int c_id)
+        public async Task RemoveContent(int c_id)
         {
             await Task.Delay(100);
+            Content deleteMe = new Content();
+
             foreach (Content c in Contents)
             {
                 if (c.Id == c_id)
                 {
-                    Contents.Remove(c);
+                    deleteMe = c;
                 }
             }
+            Contents.Remove(deleteMe);
         }
         public async void EditContent(Content content)
         {
