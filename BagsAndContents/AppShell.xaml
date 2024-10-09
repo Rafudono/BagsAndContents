@@ -4,12 +4,29 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BagsAndContents"
-    Shell.FlyoutBehavior="Disabled"
+    Shell.FlyoutBehavior="Flyout"
     Title="BagsAndContents">
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+  
+    <FlyoutItem Title="Режим просмотра">
+        <Tab>
+            <ShellContent Title="Режим просмотра" ContentTemplate="{DataTemplate local:MainPage}" Route="Overview"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Режим админа">
+        <Tab>
+            <ShellContent Title="Режим Администратора" ContentTemplate="{DataTemplate local:AdminPage}" Route="AdminMode"/>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem>
+        <Tab>
+            <ShellContent Title="test"/>
+            <ShellContent/>
+        </Tab>
+    </FlyoutItem>
+    <TabBar IsVisible="True">
+        <Tab>
+            <ShellContent Title="Авторизация" />
+        </Tab>
+        
+    </TabBar>
 </Shell>

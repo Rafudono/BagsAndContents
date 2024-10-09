@@ -5,9 +5,9 @@
 
     <ScrollView>
         <VerticalStackLayout>
-            <HorizontalStackLayout>
+            <!--<HorizontalStackLayout>
                 <Button Text="Режим разработчика" Clicked="ImAdmin"/>
-            </HorizontalStackLayout>
+            </HorizontalStackLayout>-->
             <CollectionView ItemsSource="{Binding ListBags}" SelectedItem= "{Binding SelectedBag}" SelectionMode="Single">
                 <CollectionView.ItemTemplate >
                     <DataTemplate >

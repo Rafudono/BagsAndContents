@@ -27,6 +27,7 @@ public partial class NewOrEditBag : ContentPage
     {
         NewContent nContent = new();
         await Navigation.PushAsync(nContent);
+        UpdateCollections();
     }
 
     private async void DelContent(object sender, EventArgs e)

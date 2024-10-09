@@ -131,8 +131,12 @@ namespace BagsAndContents
                 Id = Contents.Count() + 1,
                 Name = c.Name,
                 Description = c.Description,
-                BagId = c.BagId
+                BagId = c.BagId,
+               
             };
+            foreach (Bag bag in Bags)
+                if(bag.Id == content.BagId)
+                     bag.BagContents.Add(content);
             Contents.Add(content);
         }
         public async Task RemoveContent(int c_id)

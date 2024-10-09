@@ -22,7 +22,13 @@ public partial class AdminPage : ContentPage
 
     private async void AddorEditBag(object sender, EventArgs e)
     {
-        
+
+        ShellNavigationQueryParameters whatisit = new (){
+            { "id", SelectedBag.Id},
+            {"owner", SelectedBag.OwnerName },
+            {"type", SelectedBag.Type },
+            {"contents", SelectedBag.BagContents }
+        };
             NewOrEditBag nb = new NewOrEditBag(SelectedBag);
             await Navigation.PushAsync(nb);
         

@@ -15,7 +15,7 @@ public partial class NewContent : ContentPage
 
 		if (NeWContent != null)
 		{
-			DataBase.GetInstance().AddContent(NeWContent);
+            DataBase.GetInstance().AddContent(NeWContent);
 			Navigation.PopAsync();
 		}
 	}
