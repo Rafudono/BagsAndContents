@@ -18,11 +18,6 @@
             ListBags = await DataBase.GetInstance().GetBags();
             OnPropertyChanged(nameof(ListBags));
         }
-        private async void ImAdmin(object sender, EventArgs e)
-        {
-            AdminPage adm = new();
-            await Navigation.PushAsync(adm);
-        }
         protected override void OnAppearing()
         {
             UpdateCollections();

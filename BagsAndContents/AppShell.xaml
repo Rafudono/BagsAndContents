@@ -6,8 +6,12 @@
     xmlns:local="clr-namespace:BagsAndContents"
     Shell.FlyoutBehavior="Flyout"
     Title="BagsAndContents">
-  
-    <FlyoutItem Title="Режим просмотра">
+    <Shell.FlyoutHeader>
+        <ContentView>
+            <Image Source="icon.jpg"/>
+        </ContentView>
+    </Shell.FlyoutHeader>
+    <FlyoutItem Title="Режим просмотра" >
         <Tab>
             <ShellContent Title="Режим просмотра" ContentTemplate="{DataTemplate local:MainPage}" Route="Overview"/>
         </Tab>
@@ -26,6 +30,9 @@
     <TabBar IsVisible="True">
         <Tab>
             <ShellContent Title="Авторизация" />
+        </Tab>
+        <Tab>
+            <ShellContent Title="регистрация"/>
         </Tab>
         
     </TabBar>

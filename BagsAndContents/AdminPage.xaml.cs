@@ -19,18 +19,17 @@ public partial class AdminPage : ContentPage
         ListBags = await DataBase.GetInstance().GetBags();
         OnPropertyChanged(nameof(ListBags));
     }
-
-    private async void AddorEditBag(object sender, EventArgs e)
+    
+    private async void AddorEditBag()
     {
 
-        ShellNavigationQueryParameters whatisit = new (){
+        ShellNavigationQueryParameters bag = new (){
             { "id", SelectedBag.Id},
             {"owner", SelectedBag.OwnerName },
             {"type", SelectedBag.Type },
             {"contents", SelectedBag.BagContents }
         };
-            NewOrEditBag nb = new NewOrEditBag(SelectedBag);
-            await Navigation.PushAsync(nb);
+        await Shell.Current.GoToAsync("NewOrEditBagNavPage", bag);
         
     }
     protected override void OnAppearing()
@@ -52,5 +51,11 @@ public partial class AdminPage : ContentPage
     private void Reload(object sender, EventArgs e)
     {
         UpdateCollections();
+    }
+
+    private void AddBag(object sender, EventArgs e)
+    {
+        SelectedBag = new Bag();
+        AddorEditBag();
     }
 }

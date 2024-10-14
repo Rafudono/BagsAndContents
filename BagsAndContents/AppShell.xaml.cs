@@ -5,7 +5,9 @@
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute("AddOrEditBag", typeof(NewOrEditBag));
+            Routing.RegisterRoute("NewOrEditBagNavPage", typeof(NewOrEditBag));
+            Routing.RegisterRoute("NewContentNavPage", typeof(NewContent));
+
         }
     }
 }

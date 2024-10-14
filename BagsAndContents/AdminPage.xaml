@@ -5,7 +5,7 @@
              Title="AdminPage">
     <StackLayout>
         <HorizontalStackLayout>
-            <Button Text="Новая сумка" Clicked="AddorEditBag"/>
+            <Button Text="Новая сумка" Clicked="AddBag"/>
             <Button Text="Редакировать сумку" Clicked="AddorEditBag"/>
             <Button Text="Выкинуть сумку" Clicked="DeleteBag"/>
 
