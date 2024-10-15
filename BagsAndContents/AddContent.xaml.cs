@@ -13,6 +13,6 @@ public partial class AddContent : ContentPage
     private void AddNewContent(object sender, EventArgs e)
     {
 		DataBase.GetInstance().AddContent(NewContent);
-		Navigation.PopAsync();
+        Shell.Current.GoToAsync("..");
     }
 }

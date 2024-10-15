@@ -1,17 +1,18 @@
+
+using Android.Nfc;
+
 namespace BagsAndContents;
 
-public partial class NewOrEditBag : ContentPage
+public partial class NewOrEditBag : ContentPage, IQueryAttributable
 {
     public Bag NorEBag { get; set; } = new Bag();
     public Content SelectedContent { get; set; }
     public List<Content> Contents { get; set; } = new List<Content>();
 
-	public NewOrEditBag(Bag selBag)
+	public NewOrEditBag()
 	{
 		InitializeComponent();
         DataBase.GetInstance();
-        if(selBag!=null)
-        NorEBag = selBag;
         Contents = NorEBag.BagContents;
 		BindingContext = this;
 	}
@@ -25,8 +26,7 @@ public partial class NewOrEditBag : ContentPage
     }
     private async void NewContent(object sender, EventArgs e)
     {
-        NewContent nContent = new();
-        await Navigation.PushAsync(nContent);
+        await Shell.Current.GoToAsync("NewContentNavPage");
         UpdateCollections();
     }
 
@@ -56,7 +56,12 @@ public partial class NewOrEditBag : ContentPage
                 DataBase.GetInstance().EditBag(NorEBag);
                 
             }
-            Navigation.PopAsync();
+            Shell.Current.GoToAsync("..");
         }
     }
-}
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        NorEBag = (Bag)query["bag"];
+    }     
+}         

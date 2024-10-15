@@ -14,7 +14,7 @@
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Владелец: "/>
-                                <Label Text="{Binding OwnerName}"/>
+                                <Label Text="{Binding Owner.Name}"/>
                             </StackLayout>
                             <Label Text="{Binding Type}"/>
                             <CarouselView  ItemsSource="{Binding BagContents}">

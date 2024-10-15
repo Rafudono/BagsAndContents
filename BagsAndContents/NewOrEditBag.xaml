@@ -6,8 +6,8 @@
     <VerticalStackLayout>
         <Label Text="Что за сумка (пакет)?"/>
         <Entry  Text="{Binding NorEBag.Type}"/>
-        <Label Text="Чей сумка (пакет)?"/>
-        <Entry  Text="{Binding NorEBag.OwnerName}"/>
+        <Label IsEnabled="False" Text="Чей сумка (пакет)?"/>
+        <Entry IsEnabled="False"  Text="{Binding NorEBag.OwnerId}"/>
         <Label Text="Содержимое сумки (пакета)"/>
         <ListView ItemsSource="{Binding Contents}" SelectedItem="{Binding SelectedContent}">
             <ListView.ItemTemplate>

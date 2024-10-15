@@ -9,9 +9,7 @@ public partial class AdminPage : ContentPage
     public AdminPage()
 	{
 		InitializeComponent();
-
         UpdateCollections();
-
         BindingContext = this;
 	}
     public async void UpdateCollections()
@@ -20,18 +18,7 @@ public partial class AdminPage : ContentPage
         OnPropertyChanged(nameof(ListBags));
     }
     
-    private async void AddorEditBag()
-    {
 
-        ShellNavigationQueryParameters bag = new (){
-            { "id", SelectedBag.Id},
-            {"owner", SelectedBag.OwnerName },
-            {"type", SelectedBag.Type },
-            {"contents", SelectedBag.BagContents }
-        };
-        await Shell.Current.GoToAsync("NewOrEditBagNavPage", bag);
-        
-    }
     protected override void OnAppearing()
     {
         UpdateCollections();
@@ -48,14 +35,18 @@ public partial class AdminPage : ContentPage
             }
         }
     }
-    private void Reload(object sender, EventArgs e)
-    {
-        UpdateCollections();
-    }
-
     private void AddBag(object sender, EventArgs e)
     {
         SelectedBag = new Bag();
-        AddorEditBag();
+        AddorEditBag(null,null);
+    }
+
+    private async void AddorEditBag(object sender, EventArgs e)
+    {
+
+        ShellNavigationQueryParameters bag = new(){
+            {"bag", SelectedBag}
+        };
+        await Shell.Current.GoToAsync("NewOrEditBagNavPage", bag);
     }
 }

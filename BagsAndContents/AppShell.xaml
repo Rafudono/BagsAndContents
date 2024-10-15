@@ -7,10 +7,11 @@
     Shell.FlyoutBehavior="Flyout"
     Title="BagsAndContents">
     <Shell.FlyoutHeader>
-        <ContentView>
-            <Image Source="icon.jpg"/>
-        </ContentView>
+        <local:FlyoutHeader/>
     </Shell.FlyoutHeader>
+    <Shell.FlyoutFooter>
+        <local:FlyoutFooter/>
+    </Shell.FlyoutFooter>
     <FlyoutItem Title="Режим просмотра" >
         <Tab>
             <ShellContent Title="Режим просмотра" ContentTemplate="{DataTemplate local:MainPage}" Route="Overview"/>

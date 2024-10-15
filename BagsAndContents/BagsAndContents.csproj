@@ -76,6 +76,12 @@
 	  <MauiXaml Update="AuthorizationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="FlyoutFooter.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="FlyoutHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="NewContent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

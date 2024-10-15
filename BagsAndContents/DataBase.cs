@@ -14,6 +14,7 @@ namespace BagsAndContents
         private DataBase()
         {
             ReloadBagContent();
+            ReloadBagOwners();
         }
 
         public static DataBase GetInstance()
@@ -25,8 +26,8 @@ namespace BagsAndContents
         }
         private List<Bag> Bags = new List<Bag>
         {
-            new() { Id=1, OwnerName="Алёна", Type="Бежевая сумочка" }, //где заполнить коллекцию контента?
-            new() {Id=2, OwnerName="Я", Type="Сумка для компа"}
+            new() { Id=1, OwnerId=1, Type="Бежевая сумочка" },
+            new() {Id=2, OwnerId=2, Type="Сумка для компа"}
         };
         private List<Content> Contents = new List<Content>
         {
@@ -34,6 +35,10 @@ namespace BagsAndContents
         new() {Id=2, BagId=1, Name="Расчёска"},
         new() {Id=3, BagId=1, Name="Носки", Description="?"}
         };
+        private List<Person> People = new List<Person>
+        {
+            new() {Id=1, Name="Алёна"},
+            new() {Id=2, Name = "neЯ" } };
         public async Task<List<Bag>> GetBags()
         { await Task.Delay(100); return new List<Bag>(Bags); }
         public async Task<List<Content>> GetContents()
@@ -50,6 +55,16 @@ namespace BagsAndContents
                     }
             }
         }
+        public void ReloadBagOwners()
+        {
+            foreach(var bag in Bags)
+            {
+                bag.Owner = new();
+                foreach(var person in People)
+                    if(bag.OwnerId==person.Id)
+                        bag.Owner=person;
+            }
+        }
         public async Task<Bag> GetBagById(int id)
         {
             foreach (Bag b in Bags)
@@ -59,7 +74,7 @@ namespace BagsAndContents
                     Bag bag = new Bag
                     {
                         Id = b.Id,
-                        OwnerName = b.OwnerName,
+                        OwnerId = b.OwnerId,
                         Type = b.Type,
                         BagContents = b.BagContents
                     };
@@ -91,7 +106,7 @@ namespace BagsAndContents
             {
                 Id = Bags.Count() + 1,
                 Type = b.Type,
-                OwnerName= b.OwnerName,
+                OwnerId = b.OwnerId,
                 BagContents= b.BagContents
             };
             Bags.Add(bag); }
@@ -114,7 +129,7 @@ namespace BagsAndContents
             {
                 if (b.Id == bag.Id)
                 {
-                    b.OwnerName= bag.OwnerName;
+                    b.OwnerId = bag.OwnerId;
                     b.Type= bag.Type;
                     b.BagContents= bag.BagContents;
                 }
