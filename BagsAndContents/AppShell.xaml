@@ -12,29 +12,24 @@
     <Shell.FlyoutFooter>
         <local:FlyoutFooter/>
     </Shell.FlyoutFooter>
-    <FlyoutItem Title="Режим просмотра" >
+    <TabBar>
         <Tab>
-            <ShellContent Title="Режим просмотра" ContentTemplate="{DataTemplate local:MainPage}" Route="Overview"/>
+            <ShellContent Title="Авторизация" ContentTemplate="{DataTemplate local:AuthorizationPage}" Route="Auth"/>
+            <ShellContent Title="Регистрация" ContentTemplate="{DataTemplate local:RegistrationPage}" Route="Reg"/>
+        </Tab>
+    </TabBar>
+    
+    <FlyoutItem Title="Режим просмотра" Route="Overview" >
+        <Tab>
+            <ShellContent Title="Все записи" ContentTemplate="{DataTemplate local:MainPage}" Route="Overview"/>
+            <ShellContent Title="Моя учётка" ContentTemplate="{DataTemplate local:PersonalPage}" Route="MyInfo"/>
+            <ShellContent Title="Моя сумка" ContentTemplate="{DataTemplate local:PersonalBag}" Route="MyBag"/>
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Режим админа">
         <Tab>
-            <ShellContent Title="Режим Администратора" ContentTemplate="{DataTemplate local:AdminPage}" Route="AdminMode"/>
+            <ShellContent IsEnabled="{Binding IsAdmin}" Title="Режим Администратора" ContentTemplate="{DataTemplate local:AdminPage}" Route="AdminMode"/>
         </Tab>
     </FlyoutItem>
-    <FlyoutItem>
-        <Tab>
-            <ShellContent Title="test"/>
-            <ShellContent/>
-        </Tab>
-    </FlyoutItem>
-    <TabBar IsVisible="True">
-        <Tab>
-            <ShellContent Title="Авторизация" />
-        </Tab>
-        <Tab>
-            <ShellContent Title="регистрация"/>
-        </Tab>
-        
-    </TabBar>
+    <!--выйти из учётки-->
 </Shell>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -10,11 +11,12 @@ namespace BagsAndContents
 {
      class DataBase
     {
+         ContextDb context =new ContextDb("BagsApplicationDataBase");
         private static DataBase instance;
         private DataBase()
         {
-            ReloadBagContent();
-            ReloadBagOwners();
+            //ReloadBagContent();
+            //ReloadBagOwners();
         }
 
         public static DataBase GetInstance()
@@ -24,164 +26,145 @@ namespace BagsAndContents
             return instance;
         
         }
-        private List<Bag> Bags = new List<Bag>
-        {
-            new() { Id=1, OwnerId=1, Type="Бежевая сумочка" },
-            new() {Id=2, OwnerId=2, Type="Сумка для компа"}
-        };
+        private List<Bag> Bags = new List<Bag>();
+        //new List<Bag>
+        //{
+        //    new() { Id=1, OwnerId=1, Type="Бежевая сумочка" },
+        //    new() {Id=2, OwnerId=2, Type="Сумка для компа"}
+        //};
         private List<Content> Contents = new List<Content>
         {
-        new () {Id = 1, BagId=2, Name="Ноут", Description = "Очень важная вещьч"},
-        new() {Id=2, BagId=1, Name="Расчёска"},
-        new() {Id=3, BagId=1, Name="Носки", Description="?"}
+        //new () {Id = 1, BagId=2, Name="Ноут", Description = "Очень важная вещьч"},
+        //new() {Id=2, BagId=1, Name="Расчёска"},
+        //new() {Id=3, BagId=1, Name="Носки", Description="?"}
         };
         private List<Person> People = new List<Person>
         {
-            new() {Id=1, Name="Алёна"},
-            new() {Id=2, Name = "neЯ" } };
+            //new() {Id=1, Name="Алёна", Login = "al", Password = "al"},
+            //new() {Id=2, Name = "neЯ", Login="raf", Password="r" } 
+        };
         public async Task<List<Bag>> GetBags()
-        { await Task.Delay(100); return new List<Bag>(Bags); }
+        { 
+            await Task.Delay(100); 
+            Bags = context.Bags.ToList();
+            return new List<Bag>(Bags); 
+        }
         public async Task<List<Content>> GetContents()
-        { await Task.Delay(100); return new List<Content>(Contents); }
-        public void ReloadBagContent()
-        {
-            foreach (var bag in Bags)
-            {
-                bag.BagContents = new();
-                foreach (var content in Contents)
-                    if (bag.Id == content.BagId)
-                    {
-                        bag.BagContents.Add(content);
-                    }
-            }
+        { 
+            await Task.Delay(100); 
+            Contents = context.Contents.ToList();
+            return new List<Content>(Contents); 
         }
-        public void ReloadBagOwners()
-        {
-            foreach(var bag in Bags)
-            {
-                bag.Owner = new();
-                foreach(var person in People)
-                    if(bag.OwnerId==person.Id)
-                        bag.Owner=person;
-            }
-        }
+        //public void ReloadBagContent()
+        //{
+        //    foreach (var bag in Bags)
+        //    {
+        //        bag.BagContents = new();
+        //        foreach (var content in Contents)
+        //            if (bag.Id == content.BagId)
+        //            {
+        //                bag.BagContents.Add(content);
+        //            }
+        //    }
+        //}
+        //public void ReloadBagOwners()
+        //{
+        //    foreach(var bag in Bags)
+        //    {
+        //        bag.Owner = new();
+        //        foreach(var person in People)
+        //            if(bag.OwnerId==person.Id)
+        //                bag.Owner=person;
+        //    }
+        //}
         public async Task<Bag> GetBagById(int id)
         {
-            foreach (Bag b in Bags)
-            {
-                if (b.Id == id)
-                {
-                    Bag bag = new Bag
-                    {
-                        Id = b.Id,
-                        OwnerId = b.OwnerId,
-                        Type = b.Type,
-                        BagContents = b.BagContents
-                    };
-                    return bag;
-
-                }
-            }
             await Task.Delay(100);
-            return null;
+            var b =  context.Bags.Where(s=>s.Id == id).FirstOrDefault();
+            if(b!=null)
+                return b;
+            else
+                
+                //ошибка но как я буду дисплей алерт писать здесь...
+            return b;
+
         }
         public async Task<Content> GetContentById(int id)
         {
-            foreach (Content c in Contents)
-            {
-                if (c.Id == id)
-                {
-                    Content newContent = new Content();
-                    newContent = c;
-                    return newContent; 
-                }
-            }
             await Task.Delay(100);
-            return null;
+            return context.Contents.Where(s => s.Id == id).FirstOrDefault();
         }
 
         public async void AddBag(Bag b)
-        { await Task.Delay(100);
-            Bag bag = new Bag()
-            {
-                Id = Bags.Count() + 1,
-                Type = b.Type,
-                OwnerId = b.OwnerId,
-                BagContents= b.BagContents
-            };
-            Bags.Add(bag); }
+        {
+            await Task.Delay(100);
+            Bag bag = new Bag();
+            context.Bags.Add(bag);
+            context.SaveChanges();
+        }
         public async void RemoveBag(int bag_id)
-        { await Task.Delay(100);
-            Bag deleteMe = new Bag();
-            foreach (Bag b in Bags)
-            {
-                if(b.Id == bag_id)
-                {
-                    deleteMe = b;
-                }
-            }
-            Bags.Remove(deleteMe);
+        {
+            await Task.Delay(100);
+            var b = GetBagById(bag_id);
+            var deleteme = b.Result;
+            context.Bags.Remove(deleteme);
+            context.SaveChanges();
         }
         public async void EditBag (Bag bag)
         {
            
-            foreach (Bag b in Bags)
-            {
-                if (b.Id == bag.Id)
-                {
-                    b.OwnerId = bag.OwnerId;
-                    b.Type= bag.Type;
-                    b.BagContents= bag.BagContents;
-                }
-
-            }
             await Task.Delay(100);
+            Bag bag1 = new Bag();
+            context.Bags.Update(bag1);
+            context.SaveChanges();
+
         }
 
         public async void AddContent(Content c)
         {
             await Task.Delay(100);
-            Content content = new Content()
-            {
-                Id = Contents.Count() + 1,
-                Name = c.Name,
-                Description = c.Description,
-                BagId = c.BagId,
-               
-            };
-            foreach (Bag bag in Bags)
-                if(bag.Id == content.BagId)
-                     bag.BagContents.Add(content);
-            Contents.Add(content);
+            Content content = new Content();
+           context.Contents.Add(content);
+            context.SaveChanges();
+
         }
         public async Task RemoveContent(int c_id)
         {
             await Task.Delay(100);
-            Content deleteMe = new Content();
+            var c = GetContentById(c_id);
+            var deleteme= c.Result;
+            context.Contents.Remove(deleteme);
+            context.SaveChanges();
 
-            foreach (Content c in Contents)
-            {
-                if (c.Id == c_id)
-                {
-                    deleteMe = c;
-                }
-            }
-            Contents.Remove(deleteMe);
         }
-        public async void EditContent(Content content)
+        public async Task<Person> IsUserRegistred(string login, string pswd)
         {
-            foreach (Content c in Contents)
-            {
-                if (c.Id == content.Id)
-                {
-                    c.Name = content.Name;
-                    c.Description = content.Description;
-                    c.BagId = content.BagId;
-                }
-
-            }
             await Task.Delay(100);
+            var reg = context.People.Where(s => s.Password == pswd && s.Login == login).FirstOrDefault();
+            return reg;
         }
-
+        public async void AddUser(Person person)
+        {
+            await Task.Delay(100);
+            Person p = new Person();
+           context.People.Add(p);
+            context.SaveChanges();
+        }
+        public async void EditUser(Person person)
+        {
+         
+            await Task.Delay(100);
+            context.People.Update(person);
+            context.SaveChanges();
+        }
+        public async Task RemoveUser(int u_id)
+        {
+            await Task.Delay(100);
+            Person deleteMe = new Person();
+            var p= context.People.Where(s => s.Id == u_id).FirstOrDefault();
+            var deleteme = p;
+            context.People.Remove(deleteme);
+            context.SaveChanges();
+        }
     }
 }

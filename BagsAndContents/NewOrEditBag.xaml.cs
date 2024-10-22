@@ -1,5 +1,4 @@
 
-using Android.Nfc;
 
 namespace BagsAndContents;
 
@@ -36,7 +35,7 @@ public partial class NewOrEditBag : ContentPage, IQueryAttributable
         if (answer)
         {
            await DataBase.GetInstance().RemoveContent(SelectedContent.Id);
-            DataBase.GetInstance().ReloadBagContent();
+            //DataBase.GetInstance().ReloadBagContent();
         }
         UpdateCollections();
     }

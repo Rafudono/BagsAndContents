@@ -4,9 +4,12 @@
              x:Class="BagsAndContents.RegistrationPage"
              Title="RegistrationPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Логин"/>
+        <Entry Text="{Binding NickName}"/>
+        <Label Text="Пароль"/>
+        <Entry Text="{Binding Password}"/>
+        <Label Text="Имя пользователя"/>
+        <Entry Text="{Binding UserName}"/>
+        <Button Text="Создать"/>
     </VerticalStackLayout>
 </ContentPage>
