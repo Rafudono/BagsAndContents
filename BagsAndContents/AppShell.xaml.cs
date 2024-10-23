@@ -1,4 +1,6 @@
-﻿namespace BagsAndContents
+﻿using BagsAndContents.Model;
+
+namespace BagsAndContents
 {
     public partial class AppShell : Shell
     {

@@ -1,4 +1,5 @@
 using System.Runtime.Intrinsics.Arm;
+using BagsAndContents.Model;
 
 namespace BagsAndContents;
 

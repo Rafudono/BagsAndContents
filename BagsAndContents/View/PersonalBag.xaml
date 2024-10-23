@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BagsAndContents.NewOrEditBag"
-             Title="NewOrEditBag">
+             x:Class="BagsAndContents.PersonalBag"
+             Title="PersonalBag">
     <VerticalStackLayout>
-        <Label Text="Что за сумка (пакет)?"/>
-        <Entry  Text="{Binding NorEBag.Type}"/>
-        <Label IsEnabled="False" Text="Чей сумка (пакет)?"/>
-        <Entry IsEnabled="False"  Text="{Binding NorEBag.OwnerId}"/>
+        <Label Text="Ваша сумка (пакет)"/>
+        <Entry  Text="{Binding MyBag.Type}"/>
         <Label Text="Содержимое сумки (пакета)"/>
-        <ListView ItemsSource="{Binding Contents}" SelectedItem="{Binding SelectedContent}">
+        <ListView ItemsSource="{Binding MyBag.Contents}" SelectedItem="{Binding SelectedContent}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

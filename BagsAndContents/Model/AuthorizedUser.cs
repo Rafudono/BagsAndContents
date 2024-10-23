@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BagsAndContents
+namespace BagsAndContents.Model
 {
     public class AuthorizedUser
     {
         private static AuthorizedUser instance;
         public AuthorizedUser()
         {
-           
+
         }
         public Person AuthorizedPerson { get; set; }
         public static bool IsAdmin { get; set; } = false;

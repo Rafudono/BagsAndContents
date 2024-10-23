@@ -1,5 +1,7 @@
 
 
+using BagsAndContents.Model;
+
 namespace BagsAndContents;
 
 public partial class NewOrEditBag : ContentPage, IQueryAttributable

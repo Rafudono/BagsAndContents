@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BagsAndContents
+namespace BagsAndContents.Model
 {
     public class Bag
     {
@@ -18,6 +18,6 @@ namespace BagsAndContents
         public string Type { get; set; }
 
         [NotMapped]
-        public List<Content> BagContents { get; set; }=new List<Content>();  
+        public List<Content> BagContents { get; set; } = new List<Content>();
     }
 }

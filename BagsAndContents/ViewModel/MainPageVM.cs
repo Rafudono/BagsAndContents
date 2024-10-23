@@ -1,0 +1,33 @@
+﻿using BagsAndContents.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BagsAndContents.ViewModel
+{
+    public class MainPageVM:BaseVM
+    {
+        public Bag SelectedBag { get; set; }
+        public List<Bag> ListBags { get; set; } = new List<Bag>();
+        public MainPageVM()
+        {
+            UpdateCollections();
+        }
+        public async void UpdateCollections()
+        {
+            ListBags = await DataBase.GetInstance().GetBags();
+            Signal(nameof(ListBags));
+        }
+        //protected override void OnAppearing()
+        //{
+        //    UpdateCollections();
+        //}
+        private void Reload(object sender, EventArgs e)
+        {
+            UpdateCollections();
+        }
+    }
+}
+

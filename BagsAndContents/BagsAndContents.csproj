@@ -68,34 +68,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="AddContent.xaml">
+	  <MauiXaml Update="View\AddContent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="AdminPage.xaml">
+	  <MauiXaml Update="View\AdminPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="AuthorizationPage.xaml">
+	  <MauiXaml Update="View\AuthorizationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="FlyoutFooter.xaml">
+	  <MauiXaml Update="View\FlyoutFooter.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="FlyoutHeader.xaml">
+	  <MauiXaml Update="View\FlyoutHeader.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="NewContent.xaml">
+	  <MauiXaml Update="View\NewContent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="NewOrEditBag.xaml">
+	  <MauiXaml Update="View\NewOrEditBag.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="PersonalBag.xaml">
+	  <MauiXaml Update="View\PersonalBag.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="PersonalPage.xaml">
+	  <MauiXaml Update="View\PersonalPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="RegistrationPage.xaml">
+	  <MauiXaml Update="View\RegistrationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
