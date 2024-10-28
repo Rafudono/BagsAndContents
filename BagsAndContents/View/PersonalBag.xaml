@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:BagsAndContents.ViewModel"
              x:Class="BagsAndContents.PersonalBag"
              Title="PersonalBag">
+    <ContentPage.BindingContext>
+        <local:PersonalBagVM/>
+    </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label Text="Ваша сумка (пакет)"/>
         <Entry  Text="{Binding MyBag.Type}"/>
         <Label Text="Содержимое сумки (пакета)"/>
-        <ListView ItemsSource="{Binding MyBag.Contents}" SelectedItem="{Binding SelectedContent}">
+        <ListView ItemsSource="{Binding MyBag.BagContents}" SelectedItem="{Binding SelectedContent}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -19,8 +23,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="+ предмет в сумку" Clicked="NewContent"/>
-        <Button Text="Выкинуть из сумки!" Clicked="DelContent"/>
-        <Button Text="Упаковано!" Clicked="Confirm"/>
+        <Button Text="+ предмет в сумку" Command="{Binding NewContent}"/>
+        <Button Text="Выкинуть из сумки!" Command="{Binding DelContent}"/>
+        <Button Text="Упаковано!" Command="{Binding Confirm}"/>
     </VerticalStackLayout>
 </ContentPage>

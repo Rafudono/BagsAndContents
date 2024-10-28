@@ -50,6 +50,15 @@ namespace BagsAndContents.Model
             Bags = context.Bags.ToList();
             return new List<Bag>(Bags);
         }
+        public async Task<Bag> GetMyBag()
+        {
+            await Task.Delay(100);
+            var bags = await GetBags();
+            Bag mybag = bags.Where(s => s.OwnerId == AuthorizedUser.GetInstance().AuthorizedPerson.Id).FirstOrDefault();
+            if (mybag == null) { mybag = new Bag(); }
+            return mybag;
+
+        }
         public async Task<List<Content>> GetContents()
         {
             await Task.Delay(100);
@@ -141,13 +150,17 @@ namespace BagsAndContents.Model
         public async Task<Person> IsUserRegistred(string login, string pswd)
         {
             await Task.Delay(100);
-            var reg = context.People.Where(s => s.Password == pswd && s.Login == login).FirstOrDefault();
+            Person reg = new Person();
+            var isreg = context.People.Where(s => s.Password == pswd && s.Login == login).FirstOrDefault();
+            if (isreg != null)
+                return isreg;
             return reg;
         }
         public async void AddUser(Person person)
         {
             await Task.Delay(100);
             Person p = new Person();
+            p = person;
             context.People.Add(p);
             context.SaveChanges();
         }

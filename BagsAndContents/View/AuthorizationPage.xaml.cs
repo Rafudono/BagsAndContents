@@ -10,8 +10,6 @@ public partial class AuthorizationPage : ContentPage
 	public AuthorizationPage()
 	{
 		InitializeComponent();
-        Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
-        BindingContext = this;
 	}
 
     private void GoRegistration(object sender, EventArgs e)

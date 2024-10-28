@@ -5,6 +5,7 @@ namespace BagsAndContents
     public partial class AppShell : Shell
     {
         public bool IsAdmin => AuthorizedUser.IsAdmin;
+
         public AppShell()
         {
             InitializeComponent();
@@ -12,6 +13,7 @@ namespace BagsAndContents
             Routing.RegisterRoute("NewContentNavPage", typeof(NewContent));
             Routing.RegisterRoute("AuthPage", typeof(NewContent));
             Routing.RegisterRoute("RegPage", typeof(NewContent));
+            
             BindingContext = this;
         }
     }

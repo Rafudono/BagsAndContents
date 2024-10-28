@@ -22,8 +22,9 @@
     <FlyoutItem Title="Режим просмотра" Route="Overview" >
         <Tab>
             <ShellContent Title="Все записи" ContentTemplate="{DataTemplate local:MainPage}" Route="Overview"/>
-            <ShellContent Title="Моя учётка" ContentTemplate="{DataTemplate local:PersonalPage}" Route="MyInfo"/>
             <ShellContent Title="Моя сумка" ContentTemplate="{DataTemplate local:PersonalBag}" Route="MyBag"/>
+            <ShellContent Title="Моя учётка" ContentTemplate="{DataTemplate local:PersonalPage}" Route="MyInfo"/>
+    
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Режим админа">

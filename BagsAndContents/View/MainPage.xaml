@@ -8,6 +8,7 @@
     </ContentPage.BindingContext>
     <ScrollView>
         <VerticalStackLayout>
+            <Label Text="Оно точно открывается, dw"/>
             <!--<HorizontalStackLayout>
                 <Button Text="Режим разработчика" Clicked="ImAdmin"/>
             </HorizontalStackLayout>-->

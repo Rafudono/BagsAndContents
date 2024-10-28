@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BagsAndContents.ViewModel"
              x:Class="BagsAndContents.AuthorizationPage"
              Title="AuthorizationPage">
+    <ContentPage.BindingContext>
+        <local:AuthPageVM/>
+    </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label Text="Логин"/>
         <Entry Text="{Binding NickName}"/>
         <Label Text="Пароль"/>
         <Entry Text="{Binding Password}"/>
-        <Button Text="Войти" Clicked="LogIntoAc"/>
+        <Button Text="Войти" Command="{Binding LogIntoAc}"/>
 
     </VerticalStackLayout>
 </ContentPage>

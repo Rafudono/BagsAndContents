@@ -24,10 +24,6 @@ namespace BagsAndContents.ViewModel
         //{
         //    UpdateCollections();
         //}
-        private void Reload(object sender, EventArgs e)
-        {
-            UpdateCollections();
-        }
     }
 }
 
