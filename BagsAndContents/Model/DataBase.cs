@@ -55,7 +55,14 @@ namespace BagsAndContents.Model
             await Task.Delay(100);
             var bags = await GetBags();
             Bag mybag = bags.Where(s => s.OwnerId == AuthorizedUser.GetInstance().AuthorizedPerson.Id).FirstOrDefault();
-            if (mybag == null) { mybag = new Bag(); }
+            if (mybag == null)
+            {
+                mybag = new Bag();
+                mybag.Owner = AuthorizedUser.GetInstance().AuthorizedPerson;
+                mybag.OwnerId = AuthorizedUser.GetInstance().AuthorizedPerson.Id;
+                await AddBag(mybag);
+            }
+            mybag = bags.Where(s => s.OwnerId == AuthorizedUser.GetInstance().AuthorizedPerson.Id).FirstOrDefault();
             return mybag;
 
         }
@@ -105,46 +112,42 @@ namespace BagsAndContents.Model
             return context.Contents.Where(s => s.Id == id).FirstOrDefault();
         }
 
-        public async void AddBag(Bag b)
+        public async Task AddBag(Bag b)
         {
-            await Task.Delay(100);
-            Bag bag = new Bag();
-            context.Bags.Add(bag);
-            context.SaveChanges();
+            await context.Bags.AddAsync(b);
+            await context.SaveChangesAsync();
         }
-        public async void RemoveBag(int bag_id)
+        public async Task RemoveBag(int bag_id)
         {
             await Task.Delay(100);
             var b = GetBagById(bag_id);
             var deleteme = b.Result;
             context.Bags.Remove(deleteme);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
-        public async void EditBag(Bag bag)
+        public async Task EditBag(Bag bag)
         {
 
             await Task.Delay(100);
             Bag bag1 = new Bag();
             context.Bags.Update(bag1);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
         }
 
-        public async void AddContent(Content c)
+        public async Task AddContent(Content c)
         {
-            await Task.Delay(100);
             Content content = new Content();
-            context.Contents.Add(content);
-            context.SaveChanges();
+            await context.Contents.AddAsync(content);
+            await context.SaveChangesAsync();
 
         }
         public async Task RemoveContent(int c_id)
         {
-            await Task.Delay(100);
             var c = GetContentById(c_id);
             var deleteme = c.Result;
             context.Contents.Remove(deleteme);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
         }
         public async Task<Person> IsUserRegistred(string login, string pswd)
@@ -156,20 +159,15 @@ namespace BagsAndContents.Model
                 return isreg;
             return reg;
         }
-        public async void AddUser(Person person)
+        public async Task AddUser(Person person)
         {
-            await Task.Delay(100);
-            Person p = new Person();
-            p = person;
-            context.People.Add(p);
-            context.SaveChanges();
+            await context.People.AddAsync(person);
+            await context.SaveChangesAsync();
         }
-        public async void EditUser(Person person)
+        public async Task EditUser(Person person)
         {
-
-            await Task.Delay(100);
             context.People.Update(person);
-            context.SaveChanges();
+           await context.SaveChangesAsync();
         }
         public async Task RemoveUser(int u_id)
         {

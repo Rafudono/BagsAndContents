@@ -22,21 +22,20 @@ namespace BagsAndContents.ViewModel
             Signal(nameof(MyBag));
 
             NewContent = new VmCommand(async () =>
-            { 
-
+            {
+                await Shell.Current.GoToAsync("//NewContentNavPage");
             });
             DelContent = new VmCommand(async () =>
             {
-
+                //щас бы алерт сюда...
             });
             Confirm = new VmCommand(async () =>
             {
                 MyBag.OwnerId=AuthorizedUser.GetInstance().AuthorizedPerson.Id;
                 MyBag.Owner=AuthorizedUser.GetInstance().AuthorizedPerson;
-                if(MyBag.Id==0)
-                    DataBase.GetInstance().AddBag(MyBag);
-                else
-                    DataBase.GetInstance().EditBag(MyBag);
+                await DataBase.GetInstance().EditBag(MyBag);
+                //щас бы уведы сделать для юзера
+                await Shell.Current.GoToAsync("//Overview");
             });
         }
         public async void IniMyBag()

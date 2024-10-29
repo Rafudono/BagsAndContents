@@ -13,9 +13,8 @@ namespace BagsAndContents.Model
 
         public int OwnerId { get; set; }
 
-        [NotMapped]
         public Person Owner { get; set; } = new Person();
-        public string Type { get; set; }
+        public string? Type { get; set; } = "";
 
         [NotMapped]
         public List<Content> BagContents { get; set; } = new List<Content>();

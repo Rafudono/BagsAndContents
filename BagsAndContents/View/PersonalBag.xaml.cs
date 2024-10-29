@@ -7,7 +7,5 @@ public partial class PersonalBag : ContentPage
 	public PersonalBag()
 	{
 		InitializeComponent();
-        BindingContext = this;
-    }
-    
+	}
 }

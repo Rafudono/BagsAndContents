@@ -8,8 +8,4 @@ public partial class PersonalPage : ContentPage
 		InitializeComponent();
 	}
 
-    private void Save(object sender, EventArgs e)
-    {
-
-    }
 }
