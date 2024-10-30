@@ -10,29 +10,52 @@ namespace BagsAndContents.ViewModel
 {
     public class PersonalBagVM : BaseVM
     {
-        public Bag MyBag { get; set; } = new();
-        public Content SelectedContent { get; set; }
+        private Bag myBag = new();
+        private Content selectedContent;
+
+        public Bag MyBag { get => myBag; set
+            {
+                myBag = value;
+                Signal();
+            }
+        }
+        public Content SelectedContent { get => selectedContent; set
+            {
+                selectedContent = value;
+                Signal();
+            }
+        }
         //здесь редактор для сумки авторизированного пользователя
         public VmCommand NewContent { get; }
         public VmCommand DelContent { get; }
         public VmCommand Confirm { get; }
         public PersonalBagVM()
         {
-            IniMyBag();
             Signal(nameof(MyBag));
 
             NewContent = new VmCommand(async () =>
             {
-                await Shell.Current.GoToAsync("//NewContentNavPage");
+                await Shell.Current.GoToAsync("NewContentNavPage");
             });
             DelContent = new VmCommand(async () =>
             {
-                //щас бы алерт сюда...
+                if (SelectedContent != null)
+                {
+                    bool answ = await Application.Current.MainPage.DisplayAlert("Удаление содержимого", $"Вы точно хотите выкинуть {SelectedContent.Name} из сумки?", "В мусорку!", "Попридержу пока..");
+                    if (answ == true)
+                    {
+                        await DataBase.GetInstance().RemoveContent(SelectedContent.Id);
+                        IniMyBag();
+                    }
+                }
             });
             Confirm = new VmCommand(async () =>
             {
-                MyBag.OwnerId=AuthorizedUser.GetInstance().AuthorizedPerson.Id;
-                MyBag.Owner=AuthorizedUser.GetInstance().AuthorizedPerson;
+                if (MyBag.Id == 0)
+                {
+                    MyBag.OwnerId = AuthorizedUser.GetInstance().AuthorizedPerson.Id;
+                    MyBag.Owner = AuthorizedUser.GetInstance().AuthorizedPerson;
+                }
                 await DataBase.GetInstance().EditBag(MyBag);
                 //щас бы уведы сделать для юзера
                 await Shell.Current.GoToAsync("//Overview");
@@ -42,6 +65,12 @@ namespace BagsAndContents.ViewModel
         {
             var bag = await DataBase.GetInstance().GetMyBag();
             MyBag = bag;
+            Signal(nameof(MyBag));
+        }
+
+        internal void OnAppearing()
+        {
+            IniMyBag();
         }
     }
 }

@@ -10,8 +10,8 @@
     <VerticalStackLayout>
         <Label Text="Что вы хотите положить в сумку (пакет)?"/>
         <Entry  Text="{Binding NeWContent.Name}"/>
-        <Label Text="Опишите этот предмет (необязательно)?"/>
+        <Label Text="Опишите этот предмет? (необязательно)?"/>
         <Entry  Text="{Binding NeWContent.Description}"/>
-        <Button Text="Положить в сумку!" Clicked="Save"/>
+        <Button Text="Положить в сумку!" Command="{Binding Save}"/>
     </VerticalStackLayout>
 </ContentPage>

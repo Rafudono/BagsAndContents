@@ -1,4 +1,5 @@
 ﻿using BagsAndContents.Model;
+using BagsAndContents.ViewModel;
 
 namespace BagsAndContents
 {
@@ -7,12 +8,12 @@ namespace BagsAndContents
         public MainPage()
         {
             InitializeComponent();
-           // BindingContext = this;
         }
-        //protected override void OnAppearing()
-        //{
-        //    UpdateCollections();
-        //}
+        protected override void OnAppearing()
+        {
+            ((MainPageVM)BindingContext).OnAppearing();
+            base.OnAppearing();
+        }
     }
 
 }

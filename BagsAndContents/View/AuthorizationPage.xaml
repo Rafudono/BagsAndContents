@@ -11,7 +11,7 @@
         <Label Text="Логин"/>
         <Entry Text="{Binding NickName}"/>
         <Label Text="Пароль"/>
-        <Entry Text="{Binding Password}"/>
+        <Entry Text="{Binding Password} " IsPassword="True"/>
         <Button Text="Войти" Command="{Binding LogIntoAc}"/>
 
     </VerticalStackLayout>

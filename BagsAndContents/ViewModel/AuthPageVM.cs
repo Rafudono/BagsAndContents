@@ -9,9 +9,21 @@ namespace BagsAndContents.ViewModel
 {
     public class AuthPageVM:BaseVM
     {
+        private string nickName;
+        private string password;
 
-        public string NickName { get; set; }
-        public string Password { get; set; }
+        public string NickName { get => nickName; set
+            {
+                nickName = value;
+                Signal();
+            }
+        }
+        public string Password { get => password; set
+            {
+                password = value;
+                Signal();
+            }
+        }
         public VmCommand LogIntoAc { get; }
         public AuthPageVM()
         {
@@ -20,8 +32,8 @@ namespace BagsAndContents.ViewModel
             {
                 Signal(nameof(NickName));
                 Signal(nameof(Password));
-                if (NickName == null || Password == null) { }
-                // { await DisplayAlert("Ошибка", "Заполните все поля!", "ок"); return; }
+                if (NickName == null || Password == null)
+                { await Application.Current.MainPage.DisplayAlert("Ошибка", "Заполните все поля!", "ок"); return; }
                 else
                 {
                     //сменить страницу и войти
@@ -33,14 +45,17 @@ namespace BagsAndContents.ViewModel
                         Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
                         await Shell.Current.GoToAsync("//Overview");
                     }
-                    else { }
-                    // await DisplayAlert("Ошибка", "Такого аккаунта не существует", "ок");
+                    else
+                    await Application.Current.MainPage.DisplayAlert("Ошибка", "Такого аккаунта не существует", "ок");
                     return;
                 }
             });
             }
 
-
-
+        internal void OnAppearing()
+        {
+            NickName = "";
+            Password = "";
+        }
     }
 }

@@ -9,7 +9,16 @@ namespace BagsAndContents.ViewModel
 {
     public class PersonalPageVM:BaseVM
     {
-        public Person Person { get; set; }
+        private Person person;
+
+        public Person Person
+        {
+            get => person; set
+            {
+                person = value;
+                Signal();
+            }
+        }
         public VmCommand Save {  get; }
         public PersonalPageVM()
         {

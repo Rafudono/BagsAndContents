@@ -13,17 +13,18 @@ namespace BagsAndContents.ViewModel
         public List<Bag> ListBags { get; set; } = new List<Bag>();
         public MainPageVM()
         {
-            UpdateCollections();
+           
         }
         public async void UpdateCollections()
         {
             ListBags = await DataBase.GetInstance().GetBags();
             Signal(nameof(ListBags));
         }
-        //protected override void OnAppearing()
-        //{
-        //    UpdateCollections();
-        //}
+
+        internal void OnAppearing()
+        {
+            UpdateCollections();
+        }
     }
 }
 

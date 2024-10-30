@@ -32,5 +32,6 @@
             <ShellContent IsEnabled="{Binding IsAdmin}" Title="Режим Администратора" ContentTemplate="{DataTemplate local:AdminPage}" Route="AdminMode"/>
         </Tab>
     </FlyoutItem>
+    <MenuItem Text="Выйти из аккаунта" Clicked="LogOut"/>
     <!--выйти из учётки-->
 </Shell>

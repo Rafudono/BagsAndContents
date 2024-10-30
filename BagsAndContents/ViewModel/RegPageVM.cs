@@ -35,7 +35,7 @@ namespace BagsAndContents.ViewModel
                     {
                         var person = new Person { Login = NickName, Password = Password, Name = UserName };
                         DataBase.GetInstance().AddUser(person);
-                        //await DisplayAlert(" ", "Регистрация прошла успешно!", "ок");
+                        await Application.Current.MainPage.DisplayAlert(" ", "Регистрация прошла успешно!", "ок");
                         AuthorizedUser.GetInstance().AuthorizedPerson = person;
                         AuthorizedUser.GetInstance().CheckIsAdmin();
                         Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;

@@ -11,10 +11,15 @@ namespace BagsAndContents
             InitializeComponent();
             Routing.RegisterRoute("NewOrEditBagNavPage", typeof(NewOrEditBag));
             Routing.RegisterRoute("NewContentNavPage", typeof(NewContent));
-            Routing.RegisterRoute("AuthPage", typeof(NewContent));
-            Routing.RegisterRoute("RegPage", typeof(NewContent));
             
             BindingContext = this;
+        }
+
+        private async void LogOut(object sender, EventArgs e)
+        {
+            Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
+            AuthorizedUser.GetInstance().AuthorizedPerson = new Person();
+            await Current.GoToAsync("//Auth");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace BagsAndContents.Model
         private DataBase()
         {
             context.Database.EnsureCreated();
-            //ReloadBagContent();
+            ReloadBagContent();
             //ReloadBagOwners();
         }
 
@@ -72,18 +72,20 @@ namespace BagsAndContents.Model
             Contents = context.Contents.ToList();
             return new List<Content>(Contents);
         }
-        //public void ReloadBagContent()
-        //{
-        //    foreach (var bag in Bags)
-        //    {
-        //        bag.BagContents = new();
-        //        foreach (var content in Contents)
-        //            if (bag.Id == content.BagId)
-        //            {
-        //                bag.BagContents.Add(content);
-        //            }
-        //    }
-        //}
+        public async void ReloadBagContent()
+        {
+            Bags = await GetBags();
+            Contents = await GetContents();
+            foreach (var bag in Bags)
+            {
+                bag.BagContents = new();
+                foreach (var content in Contents)
+                    if (bag.Id == content.BagId)
+                    {
+                        bag.BagContents.Add(content);
+                    }
+            }
+        }
         //public void ReloadBagOwners()
         //{
         //    foreach(var bag in Bags)
@@ -97,12 +99,12 @@ namespace BagsAndContents.Model
         public async Task<Bag> GetBagById(int id)
         {
             await Task.Delay(100);
-            var b = context.Bags.Where(s => s.Id == id).FirstOrDefault();
+            var b = context.Bags.FirstOrDefault(s => s.Id == id);
             if (b != null)
                 return b;
             else
 
-                //ошибка но как я буду дисплей алерт писать здесь...
+                //ошибка но как я буду дисплей алерт писать здесь... уже понял как
                 return b;
 
         }
@@ -127,9 +129,8 @@ namespace BagsAndContents.Model
         }
         public async Task EditBag(Bag bag)
         {
-
-            await Task.Delay(100);
             Bag bag1 = new Bag();
+            bag1 = bag;
             context.Bags.Update(bag1);
             await context.SaveChangesAsync();
 
@@ -137,17 +138,20 @@ namespace BagsAndContents.Model
 
         public async Task AddContent(Content c)
         {
-            Content content = new Content();
-            await context.Contents.AddAsync(content);
+            await context.Contents.AddAsync(c);
+            var bag = await GetMyBag();
+            bag.BagContents.Add(c);
+            await EditBag(bag);
             await context.SaveChangesAsync();
+            ReloadBagContent();
 
         }
         public async Task RemoveContent(int c_id)
         {
-            var c = GetContentById(c_id);
-            var deleteme = c.Result;
-            context.Contents.Remove(deleteme);
+            var c = await GetContentById(c_id);
+            context.Contents.Remove(c);
             await context.SaveChangesAsync();
+            ReloadBagContent();
 
         }
         public async Task<Person> IsUserRegistred(string login, string pswd)
