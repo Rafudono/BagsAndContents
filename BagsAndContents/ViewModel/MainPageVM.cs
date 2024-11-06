@@ -17,6 +17,7 @@ namespace BagsAndContents.ViewModel
         }
         public async void UpdateCollections()
         {
+           
             ListBags = await DataBase.GetInstance().GetBags();
             Signal(nameof(ListBags));
         }

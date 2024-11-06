@@ -9,6 +9,9 @@ using System.Xml.Linq;
 
 namespace BagsAndContents.Model
 {
+    //ЭТО НЕНАСТОЯЩАЯ БД 
+    //просто файл json!!!
+    //нормальная только через комп = через api
     class DataBase
     {
         ContextDb context = new ContextDb("BagsApplicationDataBase");
