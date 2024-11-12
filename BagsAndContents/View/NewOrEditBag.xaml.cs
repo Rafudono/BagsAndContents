@@ -1,28 +1,29 @@
 
 
 using BagsAndContents.Model;
+using BagsAndContents.ModelsForApi;
 
 namespace BagsAndContents;
 
 public partial class NewOrEditBag : ContentPage, IQueryAttributable
 {
-    public Bag NorEBag { get; set; } = new Bag();
-    public Content SelectedContent { get; set; }
-    public List<Content> Contents { get; set; } = new List<Content>();
+    public ModelsForApi.Bag NorEBag { get; set; } = new ModelsForApi.Bag();
+    public ModelsForApi.Content SelectedContent { get; set; }
+    public List<ModelsForApi.Content> Contents { get; set; } = new List<ModelsForApi.Content>();
 
 	public NewOrEditBag()
 	{
 		InitializeComponent();
         DataBase.GetInstance();
-        Contents = NorEBag.BagContents;
+        Contents = NorEBag.Contents.ToList();
 		BindingContext = this;
 	}
     public async void UpdateCollections()
     {
         OnPropertyChanged(nameof(NorEBag));
-        Contents = new List<Content>();
+        Contents = new List<ModelsForApi.Content>();
         OnPropertyChanged(nameof(Contents));
-        Contents = NorEBag.BagContents;
+        Contents = NorEBag.Contents.ToList();
         OnPropertyChanged(nameof(Contents));
     }
     private async void NewContent(object sender, EventArgs e)
@@ -50,11 +51,11 @@ public partial class NewOrEditBag : ContentPage, IQueryAttributable
         if (NorEBag != null)
         {
             if(NorEBag.Id== 0)
-                DataBase.GetInstance().AddBag(NorEBag);
+                HostApi.GetInstance().AddBag(NorEBag);
             else
             {
                 // data.GetBagById(NorEBag.Id);
-                DataBase.GetInstance().EditBag(NorEBag);
+                HostApi.GetInstance().EditBag(NorEBag);
                 
             }
             Shell.Current.GoToAsync("..");
@@ -63,6 +64,6 @@ public partial class NewOrEditBag : ContentPage, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        NorEBag = (Bag)query["bag"];
+        NorEBag = (ModelsForApi.Bag)query["bag"];
     }     
 }         

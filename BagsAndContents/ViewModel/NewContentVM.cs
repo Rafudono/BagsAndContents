@@ -1,4 +1,4 @@
-﻿using BagsAndContents.Model;
+﻿using BagsAndContents.ModelsForApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +22,11 @@ namespace BagsAndContents.ViewModel
         {
             Save = new VmCommand(async () =>
             {
-                var bag = DataBase.GetInstance().GetMyBag();
+                var bag = HostApi.GetInstance().GetMyBag(AuthorizedUser.GetInstance().AuthorizedPerson);
                 if (NeWContent != null)
                 {
                     NeWContent.BagId= bag.Id;
-                    await DataBase.GetInstance().AddContent(NeWContent);
+                    await HostApi.GetInstance().AddContent(NeWContent);
                     await Shell.Current.GoToAsync("//MyBag");
                 }
             });

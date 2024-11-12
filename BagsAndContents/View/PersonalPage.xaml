@@ -9,11 +9,11 @@
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label Text="Логин"/>
-        <Entry Text="{Binding Person.Login}"/>
+        <Entry Text="{Binding _User.Login}"/>
         <Label Text="Пароль"/>
-        <Entry Text="{Binding Person.Password}"/>
+        <Entry Text="{Binding _User.Password}"/>
         <Label Text="Имя пользователя"/>
-        <Entry Text="{Binding Person.Name}"/>
+        <Entry Text="{Binding _User.Name}"/>
         <Button Text="Сохранить" Command="{Binding Save}"/>
     </VerticalStackLayout>
 </ContentPage>

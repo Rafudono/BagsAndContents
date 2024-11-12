@@ -1,4 +1,4 @@
-﻿using BagsAndContents.Model;
+﻿using BagsAndContents.ModelsForApi;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -44,7 +44,7 @@ namespace BagsAndContents.ViewModel
                     bool answ = await Application.Current.MainPage.DisplayAlert("Удаление содержимого", $"Вы точно хотите выкинуть {SelectedContent.Name} из сумки?", "В мусорку!", "Попридержу пока..");
                     if (answ == true)
                     {
-                        await DataBase.GetInstance().RemoveContent(SelectedContent.Id);
+                        await HostApi.GetInstance().RemoveContent(SelectedContent);
                         IniMyBag();
                     }
                 }
@@ -56,14 +56,14 @@ namespace BagsAndContents.ViewModel
                     MyBag.OwnerId = AuthorizedUser.GetInstance().AuthorizedPerson.Id;
                     MyBag.Owner = AuthorizedUser.GetInstance().AuthorizedPerson;
                 }
-                await DataBase.GetInstance().EditBag(MyBag);
+                await HostApi.GetInstance().EditBag(MyBag);
                 //щас бы уведы сделать для юзера
                 await Shell.Current.GoToAsync("//Overview");
             });
         }
         public async void IniMyBag()
         {
-            var bag = await DataBase.GetInstance().GetMyBag();
+            var bag = await HostApi.GetInstance().GetMyBag(AuthorizedUser.GetInstance().AuthorizedPerson);
             MyBag = bag;
             Signal(nameof(MyBag));
         }

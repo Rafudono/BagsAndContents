@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BagsAndContents;
+namespace BagsAndContents.ModelsForApi;
 
 public partial class Content
 {

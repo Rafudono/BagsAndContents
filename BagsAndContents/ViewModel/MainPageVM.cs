@@ -1,4 +1,4 @@
-﻿using BagsAndContents.Model;
+﻿using BagsAndContents.ModelsForApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace BagsAndContents.ViewModel
         public async void UpdateCollections()
         {
            
-            ListBags = await DataBase.GetInstance().GetBags();
+            ListBags = await HostApi.GetInstance().GetBags();
             Signal(nameof(ListBags));
         }
 

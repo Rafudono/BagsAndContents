@@ -1,4 +1,4 @@
-﻿using BagsAndContents.Model;
+﻿using BagsAndContents.ModelsForApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +36,8 @@ namespace BagsAndContents.ViewModel
                 { await Application.Current.MainPage.DisplayAlert("Ошибка", "Заполните все поля!", "ок"); return; }
                 else
                 {
-                    //сменить страницу и войти
-                    var user = await DataBase.GetInstance().IsUserRegistred(NickName, Password);
+                    SearchUserByLoginAndPassword searchdata = new SearchUserByLoginAndPassword() { Login = NickName, Password=Password };
+                    var user = await HostApi.GetInstance().IsUserRegistred(searchdata);
                     if (user.Id != 0)
                     {
                         AuthorizedUser.GetInstance().AuthorizedPerson = user;

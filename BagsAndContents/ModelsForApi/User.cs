@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BagsAndContents;
+namespace BagsAndContents.ModelsForApi;
 
 public partial class User
 {
@@ -13,7 +13,7 @@ public partial class User
 
     public string Name { get; set; } = null!;
 
-    public int IdRole { get; set; }
+    public int IdRole { get; set; } = 2;
 
     public virtual Bag? Bag { get; set; }
 

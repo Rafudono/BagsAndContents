@@ -1,4 +1,4 @@
-﻿using BagsAndContents.Model;
+﻿using BagsAndContents.ModelsForApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,24 +19,25 @@ namespace BagsAndContents.ViewModel
                 Signal(nameof(NickName));
                 Signal(nameof(Password));
                 Signal(nameof(UserName));
-                if (NickName == null || Password == null)
+                if (NickName == null || Password == null || UserName == null)
                 { //await DisplayAlert("Ошибка", "Заполните все поля!", "ок");
                     return;
                 }
                 else
                 {
                     //сменить страницу и войти
-                    var user = await DataBase.GetInstance().IsUserRegistred(NickName, Password);
+                    SearchUserByLoginAndPassword searchdata = new SearchUserByLoginAndPassword() { Login = NickName, Password = Password };
+                    var user = await HostApi.GetInstance().IsUserRegistred(searchdata);
                     if (user.Id != 0)
                     {
                         // await DisplayAlert(" ", "Такой уже есть, войдите в аккаунт", "ок");
                     }
                     else
                     {
-                        var person = new Person { Login = NickName, Password = Password, Name = UserName };
-                        DataBase.GetInstance().AddUser(person);
-                        await Application.Current.MainPage.DisplayAlert(" ", "Регистрация прошла успешно!", "ок");
-                        AuthorizedUser.GetInstance().AuthorizedPerson = person;
+                        User user1 = new () { Login = NickName, Password = Password, Name = UserName };
+                        await HostApi.GetInstance().AddUser(user1);
+                        await Application.Current.MainPage.DisplayAlert("Системное уведомление", "Регистрация прошла успешно!", "ок");
+                        AuthorizedUser.GetInstance().AuthorizedPerson = user;
                         AuthorizedUser.GetInstance().CheckIsAdmin();
                         Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
                         await Shell.Current.GoToAsync("//Overview");

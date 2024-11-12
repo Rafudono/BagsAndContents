@@ -1,4 +1,4 @@
-﻿namespace BagsAndContents
+﻿namespace BagsAndContents.ModelsForApi
 {
     public class SearchUserByLoginAndPassword
     {

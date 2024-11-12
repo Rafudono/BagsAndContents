@@ -1,4 +1,4 @@
-﻿using BagsAndContents.Model;
+﻿using BagsAndContents.ModelsForApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +9,25 @@ namespace BagsAndContents.ViewModel
 {
     public class PersonalPageVM:BaseVM
     {
-        private Person person;
+        private User user;
 
-        public Person Person
+        public User _User
         {
-            get => person; set
+            get => user; set
             {
-                person = value;
+                user = value;
                 Signal();
             }
         }
         public VmCommand Save {  get; }
         public PersonalPageVM()
         {
-            Person = AuthorizedUser.GetInstance().AuthorizedPerson;
+            _User = AuthorizedUser.GetInstance().AuthorizedPerson;
             Save = new VmCommand(async () =>
             {
-                if (Person != AuthorizedUser.GetInstance().AuthorizedPerson)
+                if (_User != AuthorizedUser.GetInstance().AuthorizedPerson)
                 {
-                    await DataBase.GetInstance().EditUser(Person);
+                    await HostApi.GetInstance().EditUser(_User);
                     await Shell.Current.GoToAsync("//Overview");
                 }
             });
